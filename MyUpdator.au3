@@ -31,7 +31,9 @@ $Button1 = _Metro_CreateButtonEx2("Download !", 180, 80, 100, 40)
 
 $Radio1 = _Metro_CreateRadioEx("1", "Offical Mybot", 16, 50, 150, 25)
 $Radio2 = _Metro_CreateRadioEx("1", "AIO Mod", 16, 80, 150, 25)
-$Radio3 = _Metro_CreateRadioEx("1", "Chill Mod", 16, 110, 150, 25)
+$Radio3 = _Metro_CreateRadioEx("1", "Light / Chill Mod", 16, 110, 150, 25)
+$Toggle = _Metro_CreateOnOffToggle("Install Visual C++ 2010", "Ignore Visual C++ 2010", 16, 150, 300, 30)
+
 _Metro_RadioCheck("1", $Radio1)
 GUISetState(@SW_SHOW)
 While 1
@@ -50,12 +52,18 @@ While 1
 			_Metro_RadioCheck(1, $Radio3)
 		Case $Button1
 			download()
+		Case $Toggle
+			If _Metro_ToggleIsChecked($Toggle) Then
+				_Metro_ToggleUnCheck($Toggle)
+			Else
+				_Metro_ToggleCheck($Toggle)
+			EndIf
 	EndSwitch
 WEnd
 
 ;My personal fonction to launch easier cmd command
-Func cmd($command)
-    RunWait(@ComSpec & " /c " & $command)
+Func cmd($command,$working = "")
+    RunWait(@ComSpec & " /c " & $command,$working)
 EndFunc
 
 ;Checking what version is selected
@@ -73,6 +81,10 @@ Func versionCheck()
 EndFunc
 
 Func download()
+	If (_Metro_ToggleIsChecked($toggle) == True) Then
+		package()
+	EndIf
+
 	$profile = profileSave()
 
 	;If Profiles folder exist in mybot move it to temp folder
@@ -112,4 +124,8 @@ Func profileSave()
 	Else 
 		return 3
 	EndIf
+EndFunc
+
+Func package()
+	cmd('vcredist_x86.exe /q /norestart',@ScriptDir)
 EndFunc
