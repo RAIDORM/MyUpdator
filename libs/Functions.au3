@@ -1,3 +1,11 @@
+;Create temp dir if not exist
+Func selfCreate()
+	If (FileExists(@ScriptDir & '\temp') == 0) Then
+		DirCreate(@ScriptDir & '\temp')
+	EndIf
+EndFunc
+
+
 ;Self Check if all files and folders are present
 Func selfCheck()
 	if FileExists(@ScriptDir & '\libs') AND FileExists(@ScriptDir & '\temp') == 0 Then
@@ -30,12 +38,7 @@ Func versionCheck()
 EndFunc
 
 Func download()
-	;SelfCheck
 	selfCheck()
-
-	;Check if emulators are selected
-	emulator()
-
 	;verify if toggle is toggled for package
 	If (_Metro_ToggleIsChecked($toggle1) == True) Then
 		package()
@@ -47,13 +50,25 @@ Func download()
 	If ($profile == 2 AND _Metro_ToggleIsChecked($toggle2) == True) Then
 		cmd('move ' & @ScriptDir & '\Mybot\Profiles' & ' ' & @ScriptDir & '\temp')
 	EndIf
+	;If Custom path is selected and keep profiles move it to temp folder 
+	If($profile == 4 AND _Metro_ToggleIsChecked($toggle2) == True) Then
+		cmd('move ' & $Input & '\Mybot\Profiles' & ' ' & @ScriptDir & '\temp')
+	EndIf
 
-	;If CSV Check keep it
+	;If CSV Check Save it to temp folder
+	If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+		If FileExists($Input & '\Mybot\CSV') AND _Metro_ToggleIsChecked($toggle3) Then
+			cmd('move ' & $Input & '\Mybot\CSV' & ' ' & @ScriptDir & '\temp')
+		EndIf
+	EndIf
 	If FileExists(@ScriptDir & '\Mybot\CSV') AND _Metro_ToggleIsChecked($toggle3) Then
 		cmd('move ' & @ScriptDir & '\Mybot\CSV' & ' ' & @ScriptDir & '\temp')
 	EndIf
 
 	;If previous Mybot release exist delete it
+	If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+		DirRemove($Input & '\Mybot',1)
+	EndIf
 	If (FileExists(@ScriptDir & '\Mybot') == 1) Then
 		DirRemove(@ScriptDir & '\Mybot',1)
 	EndIf
@@ -65,25 +80,39 @@ Func download()
 	
 	;unzip release
 	RunWait(@ComSpec & ' /c ' & 'unzip.exe ' & @ScriptDir & '\temp\update.zip',@ScriptDir & '\libs\zip\')
-	
 	;Move unziped file to script directory
-	cmd('move ' & @ScriptDir & '\libs\zip\' & $folder & ' ' & @ScriptDir)
-	
+	If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+		cmd('move ' & @ScriptDir & '\libs\zip\' & $folder & ' ' & $Input)
+	Else
+		cmd('move ' & @ScriptDir & '\libs\zip\' & $folder & ' ' & @ScriptDir)
+	EndIf
 	;rename mybot version folder to Mybot
-	DirMove(@ScriptDir & '\' &$folder,@ScriptDir & '\Mybot')
-	
+	If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+		DirMove($Input & '\' & $folder,$Input & '\Mybot')
+	Else
+		DirMove(@ScriptDir & '\' &$folder,@ScriptDir & '\Mybot')
+	EndIf
 	;Delete update.zip file
 	FileDelete(@ScriptDir & '\temp\update.zip')
 	
 	;Move Profiles folder if exist in temp folder
-	If ($profile == 2 OR $profile == 1) Then
-		DirMove(@ScriptDir & '\temp\Profiles',@ScriptDir & '\Mybot',1)
+	If ($profile == 2 OR $profile == 1 OR $profile == 4) Then
+		If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+			DirMove(@ScriptDir & '\temp\Profiles',$Input & '\Mybot',1)
+		Else
+			DirMove(@ScriptDir & '\temp\Profiles',@ScriptDir & '\Mybot',1)
+		EndIf
 	EndIf
 
 	;Move CSV folder if exist in temp folder
 	If FileExists(@ScriptDir & '\temp\CSV') Then
-		DirRemove(@ScriptDir & '\Mybot\CSV',1)
-		DirMove(@ScriptDir & '\temp\CSV',@ScriptDir & '\Mybot',1)
+		If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+			DirRemove($Input & '\Mybot\CSV',1)
+			DirMove(@ScriptDir & '\temp\CSV',$Input & '\Mybot',1)
+		Else
+			DirRemove(@ScriptDir & '\Mybot\CSV',1)
+			DirMove(@ScriptDir & '\temp\CSV',@ScriptDir & '\Mybot',1)
+		Endif
 	EndIf
 	_MsgBox(64,'Success','Your Mybot Version is updated !')
 EndFunc
@@ -94,6 +123,8 @@ Func profileSave()
 		Return 1
 	ElseIf (FileExists(@ScriptDir & '\Mybot\Profiles') == 1) Then
 		Return 2
+	ElseIf (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
+		Return 4
 	Else 
 		return 3
 	EndIf
@@ -108,18 +139,5 @@ EndFunc
 
 ;If any emulator is selected install it
 Func emulator()
-	If _Metro_CheckboxIsChecked($Checkbox1) Then
-		Dim $emulator_link = ['http://download1079.mediafire.com/f2jyq915v36g/4kzi6v2ajv9o9f1/BlueStacks+2.5.43.8001+-+Rooted.exe','BlueStacks']
-	ElseIf _Metro_CheckboxIsChecked($Checkbox2) Then
-		Dim $emulator_link = ['http://dl.memuplay.com/download/MEmu-Setup-6.2.9-ha41a2eb97.exe','Memu']
-	ElseIf  _Metro_CheckboxIsChecked($Checkbox3) Then
-		Dim $emulator_link = ['https://res06.bignox.com/full/20190816/ce5fe8d976084b2b86b20141bd459fdc.exe?filename=nox_setup_v6.3.0.6_full_intl.exe','Nox']
-	Else
-		return 2
-	EndIf
-	If FileExists(@ScriptDir & '\temp\emulator.exe') Then
-		FileDelete(@ScriptDir & '\temp\emulator.exe')
-	EndIf
-	InetGet($emulator_link[0],@ScriptDir & '\temp\emulator.exe','','1')
-	_MsgBox(32,'Emulator','Your emulator ' & $emulator_link[1] & " Will download on background don't close MyUpdator !")
+	_MsgBox(64,'Curious ( ͡° ͜ʖ ͡°)','Avaible in next update !')
 EndFunc
