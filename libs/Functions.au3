@@ -145,5 +145,45 @@ EndFunc
 
 ;If any emulator is selected install it
 Func emulator()
-	_Metro_MsgBox(64,'Curious ( ͡° ͜ʖ ͡°)','Avaible in next update !')
+	If (_Metro_RadioIsChecked(2,$Radio5)) Then
+		Local $emulatorLink = 'http://download975.mediafire.com/ifllgdrk5cdg/edda0y8jadktomy/BlueStacks+Rooted+0.10.7.5601.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio6)) Then
+		Local $emulatorLink = 'http://download1582.mediafire.com/xjb7dexfstyg/twx22cj3t6xsd73/BlueStacks.2.2.27.6431.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio7)) Then
+		Local $emulatorLink = 'http://download1072.mediafire.com/rf0le4tw3fng/mfidgyhxnxnvtzl/Rooted+BlueStacks+2.4.43.6254.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio8)) Then
+		Local $emulatorLink = 'http://download1079.mediafire.com/qym3smxwzdqg/4kzi6v2ajv9o9f1/BlueStacks+2.5.43.8001+-+Rooted.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio9)) Then
+		Local $emulatorLink = 'http://download944.mediafire.com/na0ss32bxg0g/fhik1fdw2patp4z/BS2-2.6.105.7802.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio10)) Then
+		Local $emulatorLink = 'http://download1586.mediafire.com/2nkg60y3d1dg/o60n2bxetueqck2/BlueStacks.3.50.52.Rooted.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio11)) Then
+		Local $emulatorLink = 'http://download1521.mediafire.com/rc4t0e5rlklg/ixo9w76gxqgfytc/BlueStacks.3.54.65.1755.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio12)) Then
+		Local $emulatorLink = 'http://download2056.mediafire.com/k43jw6akyt7g/7qqss4hljarpp79/BlueStacks.3.55.70.1783.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio13)) Then
+		Local $emulatorLink = 'http://download1525.mediafire.com/snrdjcernfgg/165pbyu52hbc5pt/BlueStacks.3.56.73.1817.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio14)) Then
+		Local $emulatorLink = 'http://dl.memuplay.com/download/MEmu-Setup-6.3.2-ha45606838.exe'
+	EndIf
+	If (_Metro_RadioIsChecked(2,$Radio15)) Then
+		Local $emulatorLink = 'https://res06.bignox.com/full/20190816/ce5fe8d976084b2b86b20141bd459fdc.exe?filename=nox_setup_v6.3.0.6_full_intl.exe'
+	EndIf
+
+	If IsDeclared('emulatorLink') Then
+		_Metro_MsgBox(32,'Downloading',"The programm will not respond please don't close it")
+		InetGet($emulatorLink,@ScriptDir & '\temp\emulator.exe')
+		_Metro_MsgBox(0,'Success','Donwload Finished !')
+	Else
+		_Metro_MsgBox(16,'Warning','Please select a version before clicking here !')
+	EndIf
 EndFunc

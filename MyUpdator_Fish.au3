@@ -15,7 +15,7 @@ _Metro_EnableHighDPIScaling()
 
 _SetTheme("DarkOrange") 
 
-$updateName = 'Turtle'
+$updateName = 'Fish'
 
 gui1()
 
@@ -115,7 +115,7 @@ While 1
 				_Metro_ToggleCheck($Toggle4)
 				Global $Input = _Metro_InputBox("Please enter the complete path", 11,@ScriptDir, False, True)
 				If FileExists($Input) Then
-					_MsgBox(64,'Sucess','Directory Valid !')
+					_Metro_MsgBox(64,'Success','Directory Valid !')
 				Else
 					_Metro_MsgBox(16,'Warning','Your Path seem not valid please be sure to use the complete path')
 					_Metro_ToggleUnCheck($Toggle4)
@@ -127,18 +127,18 @@ EndFunc
 
 Func gui2()
 	$Form2 = _Metro_CreateGUI("Emulators", 500, 300)
-	$Radio5 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.56.73", 16, 20, 250, 30)
-	$Radio6 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.55.70", 16, 50, 250, 30)
-	$Radio7 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.54.65", 16, 80, 250, 30)
-	$Radio8 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.50.52", 16, 110, 250, 30)
-	$Radio9 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.6.105", 16, 140, 250, 30)
-	$Radio10 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.5.43", 16, 170, 250, 30)
-	$Radio11 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.4.43", 16, 200, 250, 30)
-	$Radio12 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.2.21", 16, 230, 250, 30)
-	$Radio13 = _Metro_CreateRadioEx(2,"Install Bluestacks 0.10.7", 16, 260, 250, 30)
-	$Radio14 = _Metro_CreateRadioEx(2,"Install Memu", 280, 50, 150, 30)
-	$Radio15 = _Metro_CreateRadioEx(2,"Install Nox", 280, 80, 150, 30)
-	$Button2 = _Metro_CreateButton("Download !", 280, 200, 130, 50)
+	Global $Radio5 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.56.73", 16, 20, 250, 30)
+	Global $Radio6 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.55.70", 16, 50, 250, 30)
+	Global $Radio7 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.54.65", 16, 80, 250, 30)
+	Global $Radio8 = _Metro_CreateRadioEx(2,"Install Bluestacks 3.50.52", 16, 110, 250, 30)
+	Global $Radio9 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.6.105", 16, 140, 250, 30)
+	Global $Radio10 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.5.43", 16, 170, 250, 30)
+	Global $Radio11 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.4.43", 16, 200, 250, 30)
+	Global $Radio12 = _Metro_CreateRadioEx(2,"Install Bluestacks 2.2.21", 16, 230, 250, 30)
+	Global $Radio13 = _Metro_CreateRadioEx(2,"Install Bluestacks 0.10.7", 16, 260, 250, 30)
+	Global $Radio14 = _Metro_CreateRadioEx(2,"Install Memu", 280, 50, 150, 30)
+	Global $Radio15 = _Metro_CreateRadioEx(2,"Install Nox", 280, 80, 150, 30)
+	Global $Button2 = _Metro_CreateButton("Download !", 280, 200, 130, 50)
 	$Control_Buttons = _Metro_AddControlButtons(True, False, False, False, False)
 	$GUI_CLOSE_BUTTON = $Control_Buttons[0]
 	$GUI_MAXIMIZE_BUTTON = $Control_Buttons[1]
