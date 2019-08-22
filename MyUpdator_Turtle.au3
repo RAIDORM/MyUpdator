@@ -1,4 +1,3 @@
-#include "libs\autoit-msgbox-master\_Msgbox.au3"
 #include "libs\Functions.au3"
 #AutoIt3Wrapper_Run_Au3Stripper=y
 #Au3Stripper_Parameters=/so /rm /pe
@@ -15,6 +14,8 @@
 _Metro_EnableHighDPIScaling() 
 
 _SetTheme("DarkOrange") 
+
+$updateName = 'Turtle'
 
 gui1()
 
@@ -33,7 +34,7 @@ $GUI_FSRestore_BUTTON = $Control_Buttons[5]
 $GUI_MENU_BUTTON = $Control_Buttons[6]
 
 Global $Button1 = _Metro_CreateButton("Download !", 320, 70, 130, 50)
-
+Global $Button3 = _Metro_CreateButton("Self Update !", 320, 130, 130, 50)
 Global $Radio1 = _Metro_CreateRadioEx("1", "Offical Mybot", 166, 80, 150, 25)
 Global $Radio2 = _Metro_CreateRadioEx("1", "AIO Mod", 16, 80, 150, 25)
 Global $Radio3 = _Metro_CreateRadioEx("1", "Light Mod", 16, 110, 150, 25)
@@ -42,7 +43,11 @@ Global $Radio4 = _Metro_CreateRadioEx("1", "Chill Mod",16 , 50 , 150, 25)
 Global $Toggle1 = _Metro_CreateOnOffToggle("Install Visual C++ 2010", "Ignore Visual C++ 2010", 16, 150, 300, 30)
 Global $Toggle2 = _Metro_CreateOnOffToggle("Keep Profiles", "Delete Profiles", 16, 180, 300, 30)
 Global $Toggle3 = _Metro_CreateOnOffToggle("Keep CSV", "Delete CSV", 16, 210, 300, 30)
-Global $Toggle4 = _Metro_CreateOnOffToggle("Custom Path", "Original Path", 316, 150, 300, 30)
+Global $Toggle4 = _Metro_CreateOnOffToggle("Custom Path", "Original Path", 320, 210, 300, 30)
+Global $Label = GUICtrlCreateLabel("MyUpdator " & $updateName &" Version",150,10,200)
+GUICtrlSetColor($Label,0xFFFFFF)
+GUICtrlSetFont($Label,'','800','','Segoe UI')
+
 _Metro_ToggleCheck($Toggle2)
 _Metro_ToggleCheck($Toggle3)
 
@@ -83,6 +88,8 @@ While 1
 			_Metro_RadioCheck(1, $Radio4)
 		Case $Button1
 			download()
+		Case $Button3
+			selfUpdate()
 		Case $Toggle1
 			If _Metro_ToggleIsChecked($Toggle1) Then
 				_Metro_ToggleUnCheck($Toggle1)
@@ -106,12 +113,11 @@ While 1
 				_Metro_ToggleUnCheck($Toggle4)
 			Else
 				_Metro_ToggleCheck($Toggle4)
-
-				Global $Input = _Metro_InputBox("Please enter the complete path", 11, @ScriptDir, False, True)
+				Global $Input = _Metro_InputBox("Please enter the complete path", 11,@ScriptDir, False, True)
 				If FileExists($Input) Then
 					_MsgBox(64,'Sucess','Directory Valid !')
 				Else
-					_MsgBox(16,'Warning','Your Path seem not valid please be sure to use the complete path')
+					_Metro_MsgBox(16,'Warning','Your Path seem not valid please be sure to use the complete path')
 					_Metro_ToggleUnCheck($Toggle4)
 				EndIf
 			EndIf

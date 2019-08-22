@@ -9,9 +9,15 @@ EndFunc
 ;Self Check if all files and folders are present
 Func selfCheck()
 	if FileExists(@ScriptDir & '\libs') AND FileExists(@ScriptDir & '\temp') == 0 Then
-		_MsgBox(16,'Warning !',"MyUpdador can't find all needed directories !")
+		_Metro_MsgBox(16,'Warning !',"MyUpdador can't find all needed directories !")
 		Exit
 	EndIf
+EndFunc
+
+Func selfUpdate($iDelay = 0)
+	InetGet("https://codeload.github.com/RAIDORM/MyUpdator/zip/master",@ScriptDir & '\temp\MyUpdator_New.zip')
+	_Metro_MsgBox(16,'Warning !','The new update zip is on temp folder extract it before use !')
+	Exit
 EndFunc
 
 
@@ -30,7 +36,7 @@ Func versionCheck()
 		return 'https://github.com/NguyenAnhHD/MyBot.Run-AIO-MOD/archive/develop.zip'
 	ElseIf _Metro_RadioIsChecked(1,$Radio3) == True Then
 		Global $folder = 'MyBot_v7-master'
-		'https://github.com/ChackBR/MyBot_v7/archive/master.zip'
+		return 'https://github.com/ChackBR/MyBot_v7/archive/master.zip'
 	Else
 		Global $folder = 'MBR-Chill-MOD-develop'
 		return 'https://github.com/nickpavini/MBR-Chill-MOD/archive/develop.zip' 
@@ -114,7 +120,7 @@ Func download()
 			DirMove(@ScriptDir & '\temp\CSV',@ScriptDir & '\Mybot',1)
 		Endif
 	EndIf
-	_MsgBox(64,'Success','Your Mybot Version is updated !')
+	_Metro_MsgBox(64,'Success','Your Mybot Version ' & FileGetVersion (@ScriptDir & '\Mybot\MyBot.run.exe')& ' is updated !')
 EndFunc
 
 ;Function checking if any profiles is there
@@ -139,5 +145,5 @@ EndFunc
 
 ;If any emulator is selected install it
 Func emulator()
-	_MsgBox(64,'Curious ( ͡° ͜ʖ ͡°)','Avaible in next update !')
+	_Metro_MsgBox(64,'Curious ( ͡° ͜ʖ ͡°)','Avaible in next update !')
 EndFunc
