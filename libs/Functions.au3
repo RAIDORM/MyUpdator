@@ -38,8 +38,8 @@ Func versionCheck()
 		Global $folder = 'MyBot_v7-master'
 		return 'https://github.com/ChackBR/MyBot_v7/archive/master.zip'
 	Else
-		Global $folder = 'MBR-Chill-MOD-develop'
-		return 'https://github.com/nickpavini/MBR-Chill-MOD/archive/develop.zip' 
+		Global $folder = 'MBR-Chill-MOD-master'
+		return 'https://codeload.github.com/nickpavini/MBR-Chill-MOD/zip/master' 
 	EndIf
 EndFunc
 

@@ -15,7 +15,7 @@ _Metro_EnableHighDPIScaling()
 
 _SetTheme("DarkOrange") 
 
-$updateName = 'Fish'
+$updateName = 'Bird'
 
 gui1()
 

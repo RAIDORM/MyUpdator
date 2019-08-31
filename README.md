@@ -2,7 +2,7 @@
 
 # MyUpdator
 
-MyUpdator, take your mybot update !
+MyUpdator, keep your mybot update !
 
 ## Getting Started
 
