@@ -15,7 +15,7 @@ _Metro_EnableHighDPIScaling()
 
 _SetTheme("DarkOrange") 
 
-$updateName = 'Bird'
+$updateName = 'Snake'
 
 gui1()
 
@@ -33,17 +33,17 @@ $GUI_FULLSCREEN_BUTTON = $Control_Buttons[4]
 $GUI_FSRestore_BUTTON = $Control_Buttons[5]
 $GUI_MENU_BUTTON = $Control_Buttons[6]
 
-Global $Button1 = _Metro_CreateButton("Download !", 320, 70, 130, 50)
-Global $Button3 = _Metro_CreateButton("Self Update !", 320, 130, 130, 50)
-Global $Radio1 = _Metro_CreateRadioEx("1", "Offical Mybot", 166, 80, 150, 25)
+Global $Button1 = _Metro_CreateButtonEx2("Download", 380, 40, 100, 35)
+Global $Button3 = _Metro_CreateButtonEx2("Self Update", 380, 80, 100, 35)
+Global $Button4 = _Metro_CreateButtonEx2("Csv", 380, 120, 100, 35)
+Global $Radio1 = _Metro_CreateRadioEx("1", "Offical Mybot", 16, 140, 150, 25)
 Global $Radio2 = _Metro_CreateRadioEx("1", "AIO Mod", 16, 80, 150, 25)
 Global $Radio3 = _Metro_CreateRadioEx("1", "Light Mod", 16, 110, 150, 25)
 Global $Radio4 = _Metro_CreateRadioEx("1", "Chill Mod",16 , 50 , 150, 25)
-
-Global $Toggle1 = _Metro_CreateOnOffToggle("Install Visual C++ 2010", "Ignore Visual C++ 2010", 16, 150, 300, 30)
-Global $Toggle2 = _Metro_CreateOnOffToggle("Keep Profiles", "Delete Profiles", 16, 180, 300, 30)
-Global $Toggle3 = _Metro_CreateOnOffToggle("Keep CSV", "Delete CSV", 16, 210, 300, 30)
-Global $Toggle4 = _Metro_CreateOnOffToggle("Custom Path", "Original Path", 320, 210, 300, 30)
+Global $Toggle1 = _Metro_CreateOnOffToggle("Install Visual C++ 2010", "Ignore Visual C++ 2010", 16, 180, 300, 30)
+Global $Toggle2 = _Metro_CreateOnOffToggle("Keep Profiles", "Delete Profiles", 320, 180, 300, 30)
+Global $Toggle3 = _Metro_CreateOnOffToggle("Keep CSV", "Delete CSV", 320, 210, 300, 30)
+Global $Toggle4 = _Metro_CreateOnOffToggle("Custom Path", "Original Path", 16, 210, 300, 30)
 Global $Label = GUICtrlCreateLabel("MyUpdator " & $updateName &" Version",150,10,200)
 GUICtrlSetColor($Label,0xFFFFFF)
 GUICtrlSetFont($Label,'','800','','Segoe UI')
@@ -65,15 +65,13 @@ While 1
 		Case $GUI_MINIMIZE_BUTTON
 			GUISetState(@SW_MINIMIZE, $Form1)
 		Case $GUI_MENU_BUTTON
-			Local $MenuButtonsArray[5] = ["Main", "Emulators", "CSV", "Profiles", "Exit"]
+			Local $MenuButtonsArray[4] = ["Main", "Emulators", "Profiles", "Exit"]
 			Local $MenuSelect = _Metro_MenuStart($Form1, 150, $MenuButtonsArray)
 			Switch $MenuSelect
 				Case "1"
-				gui2()
+					gui2()
 				Case "2"
-					
-				Case "3"
-			
+					profiles()
 				Case "4"
 					_Metro_GUIDelete($Form1)
 					Exit
@@ -90,6 +88,8 @@ While 1
 			download()
 		Case $Button3
 			selfUpdate()
+		Case $Button4
+			csv()
 		Case $Toggle1
 			If _Metro_ToggleIsChecked($Toggle1) Then
 				_Metro_ToggleUnCheck($Toggle1)
@@ -138,7 +138,7 @@ Func gui2()
 	Global $Radio13 = _Metro_CreateRadioEx(2,"Install Bluestacks 0.10.7", 16, 260, 250, 30)
 	Global $Radio14 = _Metro_CreateRadioEx(2,"Install Memu", 280, 50, 150, 30)
 	Global $Radio15 = _Metro_CreateRadioEx(2,"Install Nox", 280, 80, 150, 30)
-	Global $Button2 = _Metro_CreateButton("Download !", 280, 200, 130, 50)
+	Global $Button2 = _Metro_CreateButtonEx2("Download !", 280, 200, 100, 35)
 	$Control_Buttons = _Metro_AddControlButtons(True, False, False, False, False)
 	$GUI_CLOSE_BUTTON = $Control_Buttons[0]
 	$GUI_MAXIMIZE_BUTTON = $Control_Buttons[1]

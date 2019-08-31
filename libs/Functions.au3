@@ -96,7 +96,7 @@ Func download()
 	If (IsDeclared('Input') AND _Metro_ToggleIsChecked($toggle4) == True) Then
 		DirMove($Input & '\' & $folder,$Input & '\Mybot')
 	Else
-		DirMove(@ScriptDir & '\' &$folder,@ScriptDir & '\Mybot')
+		DirMove(@ScriptDir & '\' & $folder,@ScriptDir & '\Mybot')
 	EndIf
 	;Delete update.zip file
 	FileDelete(@ScriptDir & '\temp\update.zip')
@@ -182,8 +182,25 @@ Func emulator()
 	If IsDeclared('emulatorLink') Then
 		_Metro_MsgBox(32,'Downloading',"The programm will not respond please don't close it")
 		InetGet($emulatorLink,@ScriptDir & '\temp\emulator.exe')
-		_Metro_MsgBox(0,'Success','Donwload Finished !')
 	Else
 		_Metro_MsgBox(16,'Warning','Please select a version before clicking here !')
 	EndIf
+EndFunc
+
+Func profiles()
+	If Not (FileExists(@ScriptDir & '\temp\ProfileEditor.exe')) Then
+	InetGet('https://github.com/PoH98/MyBot.Injector/releases/latest/download/MyBot.Injector.exe',@ScriptDir & '\temp\ProfileEditor.exe')
+	EndIf
+	RunWait(@ScriptDir & '\temp\ProfileEditor.exe')
+EndFunc
+
+Func csv()
+	If FileExists(@ScriptDir & '\temp\CSV') Then
+		DirRemove(@ScriptDir & '\temp\CSV',1)
+	EndIf
+	InetGet('https://codeload.github.com/RAIDORM/Csv-Collection/zip/master',@ScriptDir & '\libs\zip\Csv.zip')
+	RunWait(@ComSpec & ' /c ' & 'unzip.exe ' & @ScriptDir & '\libs\zip\Csv.zip',@ScriptDir & '\libs\zip\')
+	cmd('move ' & @ScriptDir & '\libs\zip\Csv-Collection-master '& @ScriptDir & '\temp')
+	FileDelete(@ScriptDir & '\libs\zip\Csv.zip')
+	DirMove(@ScriptDir & '\temp\Csv-Collection-master',@ScriptDir & '\temp\CSV',1)
 EndFunc
