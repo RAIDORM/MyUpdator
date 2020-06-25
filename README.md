@@ -2,13 +2,13 @@
 
 # MyUpdator
 
-MyUpdator, keep your mybot update !
+MyUpdator, keep your mybot updated !
 
 ## Getting Started
 
-- If it's the first time you use it just put your profiles folder and CSV on temp folder
+- If you never used this tool before move your profile(s) folder(s) and CSV on temp folder
 
-- Select the version you wanna choice and click on download button
+- Select your version and click on download
 
 ### Prerequisites 
 ```
@@ -20,6 +20,6 @@ OS Windows Required
 * https://github.com/opdo/autoit-msgbox - MsgBox Custom Style Metro
 * https://bit.ly/2PelAn8 - Metro Gui 
 
-## Authors
+## Author
 
 * **SubFlow**
