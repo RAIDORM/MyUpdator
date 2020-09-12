@@ -1,3 +1,4 @@
+
 ![logo](https://i.imgur.com/V3FT46x.png)
 
 # MyUpdator
@@ -22,4 +23,4 @@ OS Windows Required
 
 ## Author
 
-* **Raidorm**
+* Thomas Houtrique
